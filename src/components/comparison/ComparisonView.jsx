@@ -44,14 +44,14 @@ export function ComparisonView({ computedPalettes }) {
                 if (!swatch) {
                   return (
                     <td key={cp.id} className="px-1 py-0.5">
-                      <div className="w-full h-8 rounded bg-surface-2/30" />
+                      <div className="w-full h-14 rounded bg-surface-2/30" />
                     </td>
                   );
                 }
                 return (
                   <td key={cp.id} className="px-1 py-0.5">
                     <div
-                      className="h-8 rounded flex items-center justify-center relative overflow-hidden min-w-[60px]"
+                      className="h-14 rounded flex items-center justify-center relative overflow-hidden min-w-[60px]"
                       style={{ backgroundColor: swatch.hex }}
                     >
                       {!swatch.inGamut && (

@@ -52,12 +52,21 @@ export function TopBar() {
         {state.systems.map((sys) => (
           <div
             key={sys.id}
+            role="tab"
+            tabIndex={0}
+            aria-selected={sys.id === state.activeSystemId}
             className={`flex items-center gap-1 px-2.5 py-1 rounded text-base cursor-pointer transition-colors group ${
               sys.id === state.activeSystemId
                 ? 'bg-surface-2 text-text-primary'
                 : 'text-text-secondary hover:text-text-primary hover:bg-surface-2/50'
-            }`}
+            } focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-[-2px]`}
             onClick={() => dispatch({ type: SET_ACTIVE_SYSTEM, payload: sys.id })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                dispatch({ type: SET_ACTIVE_SYSTEM, payload: sys.id });
+              }
+            }}
           >
             <EditableLabel
               value={sys.name}
@@ -72,10 +81,14 @@ export function TopBar() {
                   e.stopPropagation();
                   dispatch({ type: REMOVE_SYSTEM, payload: sys.id });
                 }}
-                className="opacity-0 group-hover:opacity-100 text-text-tertiary hover:text-danger ml-1 transition-opacity"
+                className="min-w-[24px] min-h-[24px] flex items-center justify-center rounded opacity-0 group-hover:opacity-100 focus-visible:opacity-100 text-text-tertiary hover:text-danger hover:bg-danger/10 focus-visible:text-danger focus-visible:outline-2 focus-visible:outline-accent transition-all"
                 title="Close system"
+                aria-label={`Close ${sys.name}`}
               >
-                &times;
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <line x1="2" y1="2" x2="8" y2="8" />
+                  <line x1="8" y1="2" x2="2" y2="8" />
+                </svg>
               </button>
             )}
           </div>

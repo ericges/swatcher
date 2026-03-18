@@ -1,7 +1,8 @@
-import { memo } from 'react';
+import { memo, useState, useRef, useEffect } from 'react';
 
 /**
  * Styled range input with a live-gradient CSS track.
+ * Clicking the value number makes it editable.
  * @param {object} props
  * @param {string} props.label - Slider label
  * @param {number} props.value - Current value
@@ -20,6 +21,10 @@ export const Slider = memo(function Slider({
   onChange,
   gradient,
 }) {
+  const [editing, setEditing] = useState(false);
+  const [editValue, setEditValue] = useState('');
+  const inputRef = useRef(null);
+
   const pct = ((value - min) / (max - min)) * 100;
 
   const trackStyle = gradient
@@ -28,13 +33,54 @@ export const Slider = memo(function Slider({
         background: `linear-gradient(to right, var(--color-accent) ${pct}%, var(--color-surface-3) ${pct}%)`,
       };
 
+  const startEditing = () => {
+    setEditValue(String(Math.round(value)));
+    setEditing(true);
+  };
+
+  useEffect(() => {
+    if (editing && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [editing]);
+
+  const commitEdit = () => {
+    const parsed = Number(editValue);
+    if (!isNaN(parsed)) {
+      const clamped = Math.round(Math.min(max, Math.max(min, parsed)));
+      onChange(clamped);
+    }
+    setEditing(false);
+  };
+
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between">
         <span className="text-base text-text-secondary">{label}</span>
-        <span className="text-base font-mono text-text-secondary tabular-nums w-10 text-right">
-          {typeof value === 'number' ? Math.round(value) : value}
-        </span>
+        {editing ? (
+          <input
+            ref={inputRef}
+            type="text"
+            inputMode="numeric"
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
+            onBlur={commitEdit}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') commitEdit();
+              if (e.key === 'Escape') setEditing(false);
+            }}
+            className="w-12 text-base font-mono text-text-primary tabular-nums text-right bg-surface-2 border border-accent rounded px-1 py-0 focus:outline-none"
+          />
+        ) : (
+          <button
+            onClick={startEditing}
+            className="text-base font-mono text-text-secondary tabular-nums w-10 text-right hover:text-text-primary hover:bg-surface-2 rounded px-1 transition-colors cursor-text"
+            title="Click to edit"
+          >
+            {typeof value === 'number' ? Math.round(value) : value}
+          </button>
+        )}
       </div>
       <input
         type="range"

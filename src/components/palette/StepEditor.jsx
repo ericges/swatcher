@@ -70,11 +70,14 @@ export function StepEditor({ palette }) {
         {/* Add step */}
         <div className="flex items-center gap-0.5">
           <input
-            type="number"
-            min={1}
-            max={99}
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
             value={newStep}
-            onChange={(e) => setNewStep(e.target.value)}
+            onChange={(e) => {
+              const v = e.target.value;
+              if (v === '' || /^\d{1,2}$/.test(v)) setNewStep(v);
+            }}
             onKeyDown={(e) => e.key === 'Enter' && addStep()}
             placeholder="+"
             className="w-12 h-8 bg-surface-2 border border-border rounded text-base font-mono text-center text-text-secondary focus:border-accent focus:outline-none"

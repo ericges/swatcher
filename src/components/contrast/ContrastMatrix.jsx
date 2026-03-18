@@ -5,7 +5,7 @@ import { apcaContrastFromHex } from '../../color/apca.js';
 /**
  * Grid of APCA Lc values between two palettes.
  */
-export function ContrastMatrix({ paletteA, paletteB }) {
+export function ContrastMatrix({ paletteA, paletteB, selectedCell, onCellSelect }) {
   if (!paletteA || !paletteB) {
     return (
       <div className="text-base text-text-tertiary text-center py-4">
@@ -54,6 +54,11 @@ export function ContrastMatrix({ paletteA, paletteB }) {
                   lc={cell.lc}
                   fgHex={cell.fgHex}
                   bgHex={cell.bgHex}
+                  isSelected={
+                    selectedCell?.fgHex === cell.fgHex &&
+                    selectedCell?.bgHex === cell.bgHex
+                  }
+                  onSelect={onCellSelect}
                 />
               ))}
             </tr>

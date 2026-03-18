@@ -49,7 +49,7 @@ export function createPalette(overrides = {}) {
     hue: 240,
     saturation: 5,
     steps: [...DEFAULT_STEPS],
-    lightnessProfile: { type: 'linear', customPoints: [[0.25, 0.25], [0.75, 0.75]] },
+    lightnessProfile: { type: 'apca-adaptive', customPoints: [[0.25, 0.25], [0.75, 0.75]] },
     colorMode: 'OKLCH',
     saturationProfile: { type: 'flat', customPoints: [[0.25, 0.25], [0.75, 0.75]] },
     ...overrides,
