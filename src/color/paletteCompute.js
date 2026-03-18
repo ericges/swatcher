@@ -10,7 +10,7 @@ import { generateAdaptiveCurve, checkApcaPairs } from './adaptiveCurve.js';
 /**
  * @typedef {object} ComputedSwatch
  * @property {number} step - Step number (e.g. 50)
- * @property {string} name - Full name (e.g. "G50")
+ * @property {string} name - Display name (e.g. "50")
  * @property {string} hex - Computed hex color
  * @property {string} cssString - CSS color function string
  * @property {boolean} inGamut - Whether color is within sRGB gamut
@@ -23,7 +23,7 @@ import { generateAdaptiveCurve, checkApcaPairs } from './adaptiveCurve.js';
  * @typedef {object} ComputedHoverSwatch
  * @property {number} step - Original step number
  * @property {number} hoverStep - The step it hovers to
- * @property {string} name - Hover name (e.g. "Gh50")
+ * @property {string} name - Hover name (e.g. "50h")
  * @property {string} hex
  * @property {string} cssString
  * @property {boolean} inGamut
@@ -34,7 +34,6 @@ import { generateAdaptiveCurve, checkApcaPairs } from './adaptiveCurve.js';
  * @typedef {object} ComputedPalette
  * @property {string} id - Palette ID
  * @property {string} name - Palette name
- * @property {string} prefix - Palette prefix
  * @property {ComputedSwatch[]} swatches - All computed swatches
  * @property {ComputedHoverSwatch[]} hoverSwatches - Hover variant swatches
  * @property {{ passing: boolean, failures: Array }} apcaResult - APCA compliance result
@@ -50,7 +49,7 @@ import { generateAdaptiveCurve, checkApcaPairs } from './adaptiveCurve.js';
 export function computePalette(palette, colorMode) {
   // Prefer palette-level colorMode, fall back to system-level
   colorMode = palette.colorMode || colorMode;
-  const { id, name, prefix, hue, saturation, steps, lightnessProfile, saturationProfile } = palette;
+  const { id, name, hue, saturation, steps, lightnessProfile, saturationProfile } = palette;
   const sortedSteps = [...steps].sort((a, b) => b - a); // 100 → 0
 
   // Compute lightness values
@@ -78,14 +77,14 @@ export function computePalette(palette, colorMode) {
     // Step 100 = always pure black, Step 0 = always pure white
     if (step === 100) {
       return {
-        step, name: `${prefix}100`, hex: '#000000',
+        step, name: '100', hex: '#000000',
         cssString: colorMode === 'OKLCH' ? 'oklch(0 0 0)' : 'hsl(0 0% 0%)',
         inGamut: true, textColor: '#ffffff', lightness: 0, satMod: 0,
       };
     }
     if (step === 0) {
       return {
-        step, name: `${prefix}0`, hex: '#ffffff',
+        step, name: '0', hex: '#ffffff',
         cssString: colorMode === 'OKLCH' ? 'oklch(1 0 0)' : 'hsl(0 0% 100%)',
         inGamut: true, textColor: '#000000', lightness: 1, satMod: 0,
       };
@@ -98,7 +97,7 @@ export function computePalette(palette, colorMode) {
 
     return {
       step,
-      name: `${prefix}${step}`,
+      name: String(step),
       hex,
       cssString,
       inGamut,
@@ -134,7 +133,7 @@ export function computePalette(palette, colorMode) {
       return {
         step,
         hoverStep,
-        name: `${prefix}${step}h`,
+        name: `${step}h`,
         hex: hoverSwatch.hex,
         cssString: hoverSwatch.cssString,
         inGamut: hoverSwatch.inGamut,
@@ -154,7 +153,6 @@ export function computePalette(palette, colorMode) {
   return {
     id,
     name,
-    prefix,
     swatches,
     hoverSwatches,
     apcaResult,

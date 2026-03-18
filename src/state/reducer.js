@@ -161,12 +161,6 @@ export function reducer(state, action) {
         ui: { ...state.ui, exportPanelOpen: !state.ui.exportPanelOpen },
       };
 
-    case A.TOGGLE_CONTRAST_PANEL:
-      return {
-        ...state,
-        ui: { ...state.ui, contrastPanelOpen: !state.ui.contrastPanelOpen },
-      };
-
     case A.SET_CONTRAST_SELECTION:
       return {
         ...state,

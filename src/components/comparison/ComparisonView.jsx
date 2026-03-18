@@ -29,7 +29,6 @@ export function ComparisonView({ computedPalettes }) {
                 className="px-2 py-1 text-base font-medium text-text-secondary font-normal text-center"
               >
                 {cp.name}
-                <span className="text-text-tertiary ml-1">({cp.prefix})</span>
               </th>
             ))}
           </tr>

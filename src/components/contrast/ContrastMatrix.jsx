@@ -30,7 +30,7 @@ export function ContrastMatrix({ paletteA, paletteB }) {
         <thead>
           <tr>
             <th className="px-1 py-0.5 text-base font-mono text-text-tertiary">
-              {paletteA.prefix}\{paletteB.prefix}
+              {paletteA.name}\{paletteB.name}
             </th>
             {paletteB.swatches.map((s) => (
               <th

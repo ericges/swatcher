@@ -19,7 +19,6 @@ export function genId() {
  * @typedef {object} Palette
  * @property {string} id
  * @property {string} name
- * @property {string} prefix
  * @property {number} hue - 0–360
  * @property {number} saturation - 0–100
  * @property {number[]} steps - e.g. [100,95,90,80,70,60,50,40,30,20,15,10,0]
@@ -47,7 +46,6 @@ export function createPalette(overrides = {}) {
   return {
     id: genId(),
     name: 'Gray',
-    prefix: 'G',
     hue: 240,
     saturation: 5,
     steps: [...DEFAULT_STEPS],
@@ -85,7 +83,6 @@ export function buildInitialState() {
       activePaletteId: defaultSystem.palettes[0].id,
       viewMode: 'detail',
       exportPanelOpen: false,
-      contrastPanelOpen: false,
       contrastSelection: {
         paletteAId: null,
         paletteBId: null,

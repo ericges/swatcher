@@ -3,9 +3,9 @@ import { ContrastMatrix } from './ContrastMatrix.jsx';
 import { SET_CONTRAST_SELECTION } from '../../state/actions.js';
 
 /**
- * Right-panel wrapper for contrast matrix.
+ * Full-width view for contrast matrix comparison.
  */
-export function ContrastPanel({ computedPalettes }) {
+export function ContrastView({ computedPalettes }) {
   const { state, dispatch } = useAppState();
   const { contrastSelection } = state.ui;
 
@@ -24,47 +24,44 @@ export function ContrastPanel({ computedPalettes }) {
   };
 
   return (
-    <div className="w-80 border-l border-border bg-surface-1 flex flex-col shrink-0 overflow-hidden">
-      <div className="px-3 py-2 border-b border-border">
+    <div className="space-y-4">
+      <div className="flex items-center gap-4 flex-wrap">
         <span className="text-base uppercase tracking-wider text-text-tertiary font-medium">
           Contrast Matrix
         </span>
-      </div>
-
-      <div className="px-3 py-3 space-y-2 border-b border-border">
         <div className="flex items-center gap-2">
-          <span className="text-base text-text-tertiary w-12">Rows</span>
+          <span className="text-base text-text-tertiary">Rows</span>
           <select
             value={contrastSelection.paletteAId || ''}
             onChange={(e) => handleSelect('paletteAId', e.target.value || null)}
-            className="flex-1 bg-surface-2 border border-border rounded px-2 py-1 text-base text-text-primary focus:border-accent focus:outline-none"
+            className="bg-surface-2 border border-border rounded px-2 py-1 text-base text-text-primary focus:border-accent focus:outline-none"
           >
             <option value="">Select palette</option>
             {computedPalettes.map((cp) => (
               <option key={cp.id} value={cp.id}>
-                {cp.name} ({cp.prefix})
+                {cp.name}
               </option>
             ))}
           </select>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-base text-text-tertiary w-12">Cols</span>
+          <span className="text-base text-text-tertiary">Cols</span>
           <select
             value={contrastSelection.paletteBId || ''}
             onChange={(e) => handleSelect('paletteBId', e.target.value || null)}
-            className="flex-1 bg-surface-2 border border-border rounded px-2 py-1 text-base text-text-primary focus:border-accent focus:outline-none"
+            className="bg-surface-2 border border-border rounded px-2 py-1 text-base text-text-primary focus:border-accent focus:outline-none"
           >
             <option value="">Select palette</option>
             {computedPalettes.map((cp) => (
               <option key={cp.id} value={cp.id}>
-                {cp.name} ({cp.prefix})
+                {cp.name}
               </option>
             ))}
           </select>
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto p-3">
+      <div className="bg-surface-1 rounded-lg border border-border p-4 overflow-auto">
         <ContrastMatrix paletteA={paletteA} paletteB={paletteB} />
       </div>
     </div>

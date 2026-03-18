@@ -28,7 +28,7 @@ function getPrefix(cp, options) {
   if (options?.prefixOverrides?.[cp.id]) {
     return options.prefixOverrides[cp.id];
   }
-  return toKebab(cp.prefix);
+  return toKebab(cp.name);
 }
 
 /**

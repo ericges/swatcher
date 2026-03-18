@@ -4,7 +4,7 @@ import { Badge } from '../common/Badge.jsx';
 import { UPDATE_PALETTE } from '../../state/actions.js';
 
 /**
- * Palette header showing name, prefix, APCA badge, and gamut badge.
+ * Palette header showing name, APCA badge, and gamut badge.
  */
 export function PaletteHeader({ palette, computedPalette }) {
   const { dispatch } = useAppState();
@@ -21,10 +21,6 @@ export function PaletteHeader({ palette, computedPalette }) {
         }
         className="text-lg font-semibold"
       />
-
-      <span className="text-base font-mono text-text-tertiary bg-surface-2 px-1.5 py-0.5 rounded">
-        {palette.prefix}
-      </span>
 
       {/* APCA badge */}
       {computedPalette?.apcaResult && (

@@ -21,7 +21,6 @@ export function Sidebar() {
               type: ADD_PALETTE,
               payload: {
                 name: `Color ${count + 1}`,
-                prefix: `C${count + 1}`,
                 hue: (count * 60 + 200) % 360,
                 saturation: 50,
               },
@@ -60,7 +59,6 @@ export function Sidebar() {
                 }}
               />
               <span className="text-base truncate flex-1">{palette.name}</span>
-              <span className="text-base font-mono text-text-tertiary">{palette.prefix}</span>
               {activeSystem.palettes.length > 1 && (
                 <button
                   onClick={(e) => {

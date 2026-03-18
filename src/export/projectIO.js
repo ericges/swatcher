@@ -18,7 +18,6 @@ export function exportProjectFile(system) {
       palettes: system.palettes.map((p) => ({
         id: p.id,
         name: p.name,
-        prefix: p.prefix,
         hue: p.hue,
         saturation: p.saturation,
         steps: p.steps,
@@ -68,7 +67,7 @@ export async function importProjectFile(file) {
   }
 
   for (const p of sys.palettes) {
-    if (!p.id || !p.name || !p.prefix || !Array.isArray(p.steps)) {
+    if (!p.id || !p.name || !Array.isArray(p.steps)) {
       throw new Error(`Invalid palette "${p.name || 'unknown'}": missing required fields`);
     }
   }

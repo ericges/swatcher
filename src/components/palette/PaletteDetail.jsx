@@ -4,7 +4,7 @@ import { ColorSliders } from './ColorSliders.jsx';
 import { StepEditor } from './StepEditor.jsx';
 import { SwatchGrid } from './SwatchGrid.jsx';
 import { CurvePanel } from '../curves/CurvePanel.jsx';
-import { UPDATE_PALETTE, SET_COLOR_MODE } from '../../state/actions.js';
+import { SET_COLOR_MODE } from '../../state/actions.js';
 
 /**
  * Full focused palette view in detail mode.
@@ -30,7 +30,7 @@ export function PaletteDetail({ computedPalettes }) {
   const computedPalette = computedPalettes.find((cp) => cp.id === palette.id);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="space-y-6">
       <PaletteHeader palette={palette} computedPalette={computedPalette} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -58,27 +58,6 @@ export function PaletteDetail({ computedPalettes }) {
 
           <div className="bg-surface-1 rounded-lg border border-border p-4">
             <StepEditor palette={palette} />
-          </div>
-
-          {/* Prefix editor */}
-          <div className="bg-surface-1 rounded-lg border border-border p-4">
-            <span className="text-base uppercase tracking-wider text-text-tertiary mb-2 block">
-              Prefix
-            </span>
-            <input
-              type="text"
-              value={palette.prefix}
-              onChange={(e) => {
-                const val = e.target.value.replace(/[^a-zA-Z0-9]/g, '').slice(0, 4);
-                if (val) {
-                  dispatch({
-                    type: UPDATE_PALETTE,
-                    payload: { id: palette.id, changes: { prefix: val } },
-                  });
-                }
-              }}
-              className="w-16 bg-surface-2 border border-border rounded px-2 py-1 text-base font-mono text-text-primary focus:border-accent focus:outline-none"
-            />
           </div>
         </div>
 

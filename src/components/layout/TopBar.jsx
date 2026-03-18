@@ -8,7 +8,6 @@ import {
   SET_ACTIVE_SYSTEM,
   SET_VIEW_MODE,
   TOGGLE_EXPORT_PANEL,
-  TOGGLE_CONTRAST_PANEL,
 } from '../../state/actions.js';
 import { exportProjectFile } from '../../export/projectIO.js';
 import { importProjectFile } from '../../export/projectIO.js';
@@ -117,22 +116,17 @@ export function TopBar() {
           >
             Compare
           </button>
+          <button
+            onClick={() => dispatch({ type: SET_VIEW_MODE, payload: 'contrast' })}
+            className={`px-2 py-1 text-base font-medium transition-colors ${
+              state.ui.viewMode === 'contrast'
+                ? 'bg-surface-2 text-text-primary'
+                : 'text-text-secondary hover:text-text-primary'
+            }`}
+          >
+            Contrast
+          </button>
         </div>
-
-        {/* Contrast panel toggle */}
-        <IconButton
-          onClick={() => dispatch({ type: TOGGLE_CONTRAST_PANEL })}
-          title="Contrast matrix"
-          active={state.ui.contrastPanelOpen}
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
-            <rect x="1" y="1" width="12" height="12" rx="2" />
-            <line x1="1" y1="5" x2="13" y2="5" />
-            <line x1="1" y1="9" x2="13" y2="9" />
-            <line x1="5" y1="1" x2="5" y2="13" />
-            <line x1="9" y1="1" x2="9" y2="13" />
-          </svg>
-        </IconButton>
 
         {/* Export */}
         <IconButton
@@ -141,7 +135,7 @@ export function TopBar() {
           active={state.ui.exportPanelOpen}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
-            <path d="M7 2v7M4 6l3 3 3-3M2 11h10" />
+            <path d="M4.5 2L1.5 7l3 5M9.5 2l3 5-3 5" />
           </svg>
         </IconButton>
 
@@ -169,8 +163,7 @@ export function TopBar() {
             title="Save project file"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
-              <path d="M11 13H3a1 1 0 01-1-1V2a1 1 0 011-1h6l3 3v8a1 1 0 01-1 1z" />
-              <path d="M9 1v3h3M5 7h4M5 9h4" />
+              <path d="M7 2v7M4 6l3 3 3-3M2 11h10" />
             </svg>
           </IconButton>
         )}

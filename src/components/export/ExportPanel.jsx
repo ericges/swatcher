@@ -19,7 +19,7 @@ export function ExportPanel({ system, computedPalettes }) {
   useEffect(() => {
     const defaults = {};
     for (const cp of computedPalettes) {
-      defaults[cp.id] = toKebab(cp.prefix);
+      defaults[cp.id] = toKebab(cp.name);
     }
     setPrefixOverrides((prev) => {
       const next = { ...defaults };
@@ -31,7 +31,7 @@ export function ExportPanel({ system, computedPalettes }) {
       }
       return next;
     });
-  }, [computedPalettes.map((cp) => cp.id + cp.prefix).join(',')]);
+  }, [computedPalettes.map((cp) => cp.id + cp.name).join(',')]);
 
   const tabs = EXPORT_FORMATS.map((f) => ({ id: f.id, label: f.label }));
 
@@ -77,7 +77,7 @@ export function ExportPanel({ system, computedPalettes }) {
                 <span className="text-base text-text-tertiary">{cp.name}:</span>
                 <input
                   type="text"
-                  value={prefixOverrides[cp.id] ?? toKebab(cp.prefix)}
+                  value={prefixOverrides[cp.id] ?? toKebab(cp.name)}
                   onChange={(e) =>
                     setPrefixOverrides((prev) => ({
                       ...prev,
