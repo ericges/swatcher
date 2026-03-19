@@ -1,0 +1,19 @@
+# Swatcher
+
+> A comprehensive color system design tool built with React, Vite, and Tailwind CSS v4.
+
+Swatcher is a powerful and intuitive color system design tool aimed at helping developers and designers create, manage, and export accessible color palettes and design tokens. Whether you're building a design system from scratch or fine-tuning an existing one, Swatcher provides the precision tools you need.
+
+## Key Features
+
+- Advanced Color Math: Precise color calculations and manipulations across different color spaces.
+- Robust State Management: Powered by React useReducer and the Context API for scalable application state.
+- Dark-Themed Interface: A clean, user-friendly workspace optimized for focused design work.
+- Export Formats: Easily export your color system as design tokens (CSS variables, JSON, etc.) for direct integration into your projects.
+- Accessibility Built-in: Includes APCA contrast calculations to ensure your colors are readable and compliant with modern accessibility standards.
+- Gamut Warnings: Get real-time alerts when colors fall outside the standard sRGB gamut, preventing display inconsistencies.
+- Customizable Curve Editing: Fine-tune color scales and gradients with a visual curve editing system.
+
+## Project Details
+- Built with React 19, Vite 6, and Tailwind CSS v4.
+- Source repo: https://github.com/ericges/swatcher
