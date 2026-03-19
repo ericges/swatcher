@@ -13,10 +13,14 @@ export function ColorSliders({ palette }) {
     dispatch({ type: UPDATE_PALETTE, payload: { id: palette.id, changes } });
   };
 
-  // Build hue gradient
+  // Build hue gradient matching the active color function
   const hueStops = [];
   for (let h = 0; h <= 360; h += 30) {
-    hueStops.push(`hsl(${h}, 80%, 50%)`);
+    hueStops.push(
+      colorMode === 'OKLCH'
+        ? `oklch(0.7 0.15 ${h})`
+        : `hsl(${h}, 80%, 50%)`
+    );
   }
   const hueGradient = `linear-gradient(to right, ${hueStops.join(', ')})`;
 
